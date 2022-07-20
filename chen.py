@@ -14,12 +14,11 @@ def is_less(e1: T, e2: T) -> bool:
 
 
 def find_next_x_block(A: List[T], x0: int, z: int, y0: int, y: int, k: int, f: int, b1: int, b2: int, is_less: Callable[[T, T], bool]) -> int:
-    global NUMBER_COMPARISONS
     min1 = 0; min2 = 0; min_values_not_set = True
     m = ((z - x0 - f) // k) * k + f + x0
     if m <= z: m += k
     i = m
-    if z != x0: i = max(i, y0-2*k) # optimization
+    if y > y0 and z > x0: i = max(i, y0-2*k) # optimization
     while i + k <= y:
         if i != b1 and i != b2:
             j = m - 1 if i < b1 and b1 < i + k else i + k - 1
